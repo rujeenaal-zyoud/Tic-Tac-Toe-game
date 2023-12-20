@@ -132,7 +132,6 @@ class _GameScreenState extends State<GameScreen> {
                   children: [
                     Text(resultDeclaration, style: customFontWhite),
                     SizedBox(height: 10),
-                    _buildTimer()
                   ],
                 ),
               ),
@@ -169,7 +168,6 @@ class _GameScreenState extends State<GameScreen> {
       setState(() {
         resultDeclaration = 'Player ' + displayXO[0] + ' Wins!';
         matchedIndexes.addAll([0, 1, 2]);
-        stopTimer();
         _updateScore(displayXO[0]);
       });
     }
@@ -181,7 +179,6 @@ class _GameScreenState extends State<GameScreen> {
       setState(() {
         resultDeclaration = 'Player ' + displayXO[3] + ' Wins!';
         matchedIndexes.addAll([3, 4, 5]);
-        stopTimer();
         _updateScore(displayXO[3]);
       });
     }
@@ -193,7 +190,6 @@ class _GameScreenState extends State<GameScreen> {
       setState(() {
         resultDeclaration = 'Player ' + displayXO[6] + ' Wins!';
         matchedIndexes.addAll([6, 7, 8]);
-        stopTimer();
         _updateScore(displayXO[6]);
       });
     }
@@ -205,7 +201,6 @@ class _GameScreenState extends State<GameScreen> {
       setState(() {
         resultDeclaration = 'Player ' + displayXO[0] + ' Wins!';
         matchedIndexes.addAll([0, 3, 6]);
-        stopTimer();
         _updateScore(displayXO[0]);
       });
     }
@@ -217,7 +212,6 @@ class _GameScreenState extends State<GameScreen> {
       setState(() {
         resultDeclaration = 'Player ' + displayXO[1] + ' Wins!';
         matchedIndexes.addAll([1, 4, 7]);
-        stopTimer();
         _updateScore(displayXO[1]);
       });
     }
@@ -229,7 +223,6 @@ class _GameScreenState extends State<GameScreen> {
       setState(() {
         resultDeclaration = 'Player ' + displayXO[2] + ' Wins!';
         matchedIndexes.addAll([2, 5, 8]);
-        stopTimer();
         _updateScore(displayXO[2]);
       });
     }
@@ -241,7 +234,6 @@ class _GameScreenState extends State<GameScreen> {
       setState(() {
         resultDeclaration = 'Player ' + displayXO[0] + ' Wins!';
         matchedIndexes.addAll([0, 4, 8]);
-        stopTimer();
         _updateScore(displayXO[0]);
       });
     }
@@ -273,59 +265,15 @@ class _GameScreenState extends State<GameScreen> {
     winnerFound = true;
   }
 
-  void _clearBoard() {
-    setState(() {
-      for (int i = 0; i < 9; i++) {
-        displayXO[i] = '';
-      }
-      resultDeclaration = '';
-      matchedIndexes = [];
-    });
-    filledBoxes = 0;
-  }
 
-  Widget _buildTimer() {
-    final isRunning = timer == null ? false : timer!.isActive;
-
-    return isRunning
-        ? SizedBox(
-            width: 100,
-            height: 100,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                CircularProgressIndicator(
-                  value: 1 - seconds / maxSeconds,
-                  valueColor: AlwaysStoppedAnimation(Colors.white),
-                  strokeWidth: 8,
-                  backgroundColor: MainColor.accentColor,
-                ),
-                Center(
-                  child: Text(
-                    '$seconds',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontSize: 50,
+  
                     ),
-                  ),
+              
                 ),
               ],
             ),
           )
-        : ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16)),
-            onPressed: () {
-              startTimer();
-              _clearBoard();
-              attempts++;
-            },
-            child: Text(
-              attempts == 0 ? 'Start' : 'Play Again!',
-              style: TextStyle(fontSize: 20, color: Colors.black),
-            ),
+        
           );
   }
 }
